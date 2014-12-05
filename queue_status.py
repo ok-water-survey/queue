@@ -10,6 +10,7 @@ from datetime import datetime
 from Cheetah.Template import Template
 from json_handler import handler
 from bson.binary import Binary
+import config
 
 templatepath= os.path.abspath(os.path.join(os.path.dirname(__file__), 'templates'))
 
@@ -64,7 +65,8 @@ def mimetype(type):
     return decorate
 
 class Root(object):
-    def __init__(self,mongoHost='localhost',port=27017,database='cybercom_queue',log_collection='task_log',tomb_collection='cybercom_queue_meta'):
+    def __init__(self,mongoHost=config.MONGO_HOST,port=config.MONGO_PORT,database=config.MONGO_DATABASE,
+                    log_collection=config.MONGO_LOG_COLLECTION,tomb_collection=config.MONGO_TOMB_COLLECTION):
         self.db = Connection(mongoHost,port)#[database]
         self.database = database
         self.collection = log_collection #'ows_task_log'
